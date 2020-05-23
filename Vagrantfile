@@ -14,6 +14,8 @@ Vagrant.configure("2") do |config|
   # boxes at https://vagrantcloud.com/search.
   config.vm.box = "generic/alpine311"
 
+  config.vm.hostname = "ansible-host"
+
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
   # `vagrant box outdated`. This is not recommended.
@@ -43,7 +45,7 @@ Vagrant.configure("2") do |config|
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
-  # config.vm.synced_folder "../data", "/vagrant_data"
+  config.vm.synced_folder "../data", "/vagrant_data"
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
@@ -64,9 +66,13 @@ Vagrant.configure("2") do |config|
   # Ansible, Chef, Docker, Puppet and Salt are also available. Please see the
   # documentation for more information about their specific syntax and use.
    config.vm.provision "shell", inline: <<-SHELL
-     apk add --no-cache git python3-dev gcc vim libstdc++ g++ libffi-dev openssl-dev
+     apk add --no-cache git python3-dev gcc vim libstdc++ g++ libffi-dev openssl-dev tmux
      pip3 install --upgrade pip
      pip3 install wheel
      pip3 install 'ansible==2.9.9'
+     if [ ! -d /home/vagrant/dot-config ]; then
+       sudo -H -u vagrant bash -c 'git clone https://github.com/khorsmann/dot-config.git'
+       sudo -H -u vagrant bash -c 'cd dot-config; ./setup.py'
+     fi
    SHELL
 end
