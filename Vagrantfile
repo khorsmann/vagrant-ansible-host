@@ -74,10 +74,11 @@ Vagrant.configure("2") do |config|
      apk add --no-cache git python3-dev gcc vim libstdc++ g++ libffi-dev openssl-dev tmux
      pip3 install --upgrade pip
      pip3 install wheel
-     pip3 install 'ansible==2.9.9' ansible-lint
+     pip3 install 'ansible==2.9.9' ansible-lint argcomplete
      if [ ! -d /home/vagrant/dot-config ]; then
        sudo -H -u vagrant bash -c 'git clone https://github.com/khorsmann/dot-config.git'
        sudo -H -u vagrant bash -c 'cd dot-config; ./setup.py'
      fi
+     # sudo activate-global-python-argcomplete
    SHELL
 end
