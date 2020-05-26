@@ -71,7 +71,7 @@ Vagrant.configure("2") do |config|
   # documentation for more information about their specific syntax and use.
    config.vm.provision "shell", inline: <<-SHELL
      apk update && apk upgrade && \
-     apk add --no-cache git python3-dev gcc vim libstdc++ g++ libffi-dev openssl-dev tmux
+     apk add --no-cache git python3-dev gcc vim libstdc++ g++ libffi-dev openssl-dev tmux sshpass
      pip3 install --upgrade pip
      pip3 install wheel
      pip3 install 'ansible==2.9.9' ansible-lint argcomplete
