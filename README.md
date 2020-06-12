@@ -1,1 +1,1 @@
-# Vagrantfile for alpine with alpine 2.9.9
+# Vagrantfile for alpine with ansible 2.9.9
