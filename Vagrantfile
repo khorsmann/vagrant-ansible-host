@@ -12,7 +12,7 @@ Vagrant.configure("2") do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
-  config.vm.box = "generic/alpine311"
+  config.vm.box = "generic/alpine312"
 
   config.vm.hostname = "ansible-host"
 
@@ -45,7 +45,7 @@ Vagrant.configure("2") do |config|
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
-  config.vm.synced_folder "../data", "/vagrant_data"
+  config.vm.synced_folder "../data", "/vagrant_data", owner: "vagrant", group: "vagrant"
   
   if Vagrant.has_plugin?("vagrant-vbguest")
     config.vbguest.auto_update = false
@@ -71,7 +71,7 @@ Vagrant.configure("2") do |config|
   # documentation for more information about their specific syntax and use.
    config.vm.provision "shell", inline: <<-SHELL
      apk update && apk upgrade && \
-     apk add --no-cache git python3-dev gcc vim libstdc++ g++ libffi-dev openssl-dev tmux sshpass
+     apk add --no-cache git python3-dev gcc vim libstdc++ g++ libffi-dev openssl-dev tmux sshpass py3-pip
      pip3 install --upgrade pip
      pip3 install wheel
      pip3 install 'ansible==2.9.9' ansible-lint argcomplete
